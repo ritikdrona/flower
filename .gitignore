@@ -1,8 +1,12 @@
 # Node JS
-node_modules/
+node_modules
 yarn-error.log
 
 .husky/_/
 
 # Turborepo
 .turbo
+
+# dotenv environment variables file
+.env
+!.env.sample

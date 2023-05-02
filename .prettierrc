@@ -2,7 +2,7 @@
   "tabWidth": 4,
   "trailingComma": "none",
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "overrides": [
     {
       "files": ["**.json", ".prettierrc"],
