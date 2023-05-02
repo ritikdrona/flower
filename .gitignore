@@ -1,4 +1,8 @@
 # Node JS
 node_modules/
+yarn-error.log
 
 .husky/_/
+
+# Turborepo
+.turbo

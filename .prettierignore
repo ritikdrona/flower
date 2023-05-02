@@ -1,5 +1,3 @@
 node_modules/
-**/*.json
 yarn.lock
-.prettierrc
 app/build/
