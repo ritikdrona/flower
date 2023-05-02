@@ -11,9 +11,9 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
-            - run: yarn install --frozen-lockfile && yarn workspace app build
+            - run: yarn install --frozen-lockfile && yarn workspace web build
 
-            - run: cp -r ./app/build ~
+            - run: cp -r ./apps/web/build ~
 
             - uses: actions/checkout@v2
               with:
