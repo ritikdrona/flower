@@ -2,10 +2,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 
+dotenv.config();
+
 import './database';
 import router from './router';
-
-dotenv.config();
 
 const app = express();
 app.set('title', 'Emma API');
