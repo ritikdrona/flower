@@ -8,7 +8,7 @@ import './database';
 import router from './router';
 
 const app = express();
-app.set('title', 'Emma API');
+app.set('title', 'Flower API');
 app.use(express.json());
 app.use(cors());
 app.use('/', router);
