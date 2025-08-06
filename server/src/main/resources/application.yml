@@ -1,0 +1,11 @@
+spring:
+  application.name: Flower Server Application
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./data/flower
+  liquibase:
+    change-log: classpath:db/changelog-master.xml
+server.port: 8000
+logging.level:
+  root: ERROR
+  com.flower.server: DEBUG

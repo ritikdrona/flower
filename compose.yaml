@@ -1,0 +1,21 @@
+services:
+  database:
+    image: postgres:17.5-bookworm
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: flower
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - flower
+
+networks:
+  flower: { }
+
+volumes:
+  postgres_data:
+    driver: local
