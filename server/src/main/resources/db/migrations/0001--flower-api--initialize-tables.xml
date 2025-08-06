@@ -10,16 +10,13 @@
             <column name="id" type="varchar(255)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="role" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
             <column name="username" type="varchar(255)">
                 <constraints unique="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(255)">
+            <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="varchar(255)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
