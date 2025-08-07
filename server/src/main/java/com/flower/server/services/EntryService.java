@@ -24,13 +24,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EntryService {
 
-    final EntryRepository entryRepository;
+    private final EntryRepository entryRepository;
 
-    final FormRepository formRepository;
+    private final FormRepository formRepository;
 
-    final Converter converter;
+    private final Converter converter;
 
-    final JsonSchemaFactory jsonSchemaFactory;
+    private final JsonSchemaFactory jsonSchemaFactory;
 
     public EntryDTO createEntry(EntryDTO entryDTO) {
         validateFormExistsAndValuesConformToSchema(entryDTO);

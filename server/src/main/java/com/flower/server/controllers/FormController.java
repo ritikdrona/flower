@@ -1,8 +1,8 @@
 package com.flower.server.controllers;
 
-import com.flower.server.dtos.ApiResponse;
-import com.flower.server.dtos.ApiSingleRequest;
-import com.flower.server.dtos.ApiSingleResponse;
+import com.flower.server.dtos.generic.ApiResponse;
+import com.flower.server.dtos.generic.ApiSingleRequest;
+import com.flower.server.dtos.generic.ApiSingleResponse;
 import com.flower.server.dtos.FormDTO;
 import com.flower.server.services.FormService;
 import lombok.RequiredArgsConstructor;

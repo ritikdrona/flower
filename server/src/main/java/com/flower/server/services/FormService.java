@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FormService {
 
-    final private FormRepository formRepository;
+    private final FormRepository formRepository;
 
     private final Converter converter;
 

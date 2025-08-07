@@ -1,4 +1,4 @@
-package com.flower.server.dtos;
+package com.flower.server.dtos.generic;
 
 import lombok.Data;
 
