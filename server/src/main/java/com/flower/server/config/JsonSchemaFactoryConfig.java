@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JsonSchemaFactoryConfig {
 
-    public JsonSchemaFactory jsonSchemaFactory() {
-        return JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012);
-    }
-
+  public JsonSchemaFactory jsonSchemaFactory() {
+    return JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012);
+  }
 }

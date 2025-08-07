@@ -5,10 +5,9 @@ import lombok.Data;
 @Data
 public class FormDTO {
 
-    String id;
+  String id;
 
-    String schema; // Stored fields, their types and validations if any in json
+  String schema; // Stored fields, their types and validations if any in json
 
-    String userId;
-
+  String userId;
 }

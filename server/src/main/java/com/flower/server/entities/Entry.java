@@ -12,13 +12,12 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = "entries")
 public class Entry {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @UuidGenerator
-    String id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @UuidGenerator
+  String id;
 
-    String formId;
+  String formId;
 
-    String values; // stored validated values of an entry against a form as json
-
+  String values; // stored validated values of an entry against a form as json
 }

@@ -12,15 +12,14 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @UuidGenerator
-    String id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @UuidGenerator
+  String id;
 
-    String username;
+  String username;
 
-    String password;
+  String password;
 
-    String name;
-
+  String name;
 }
