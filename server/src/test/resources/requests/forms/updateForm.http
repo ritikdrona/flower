@@ -1,0 +1,21 @@
+PUT http://localhost:8000/forms/7cdcc0c5-039e-42cf-a113-456f91e155a2
+Content-Type: application/json
+
+{
+    "request": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "title": "username"
+                },
+                "password": {
+                    "type": "string",
+                    "title": "password"
+                }
+            },
+            "required": ["username", "password"]
+        }
+    }
+}

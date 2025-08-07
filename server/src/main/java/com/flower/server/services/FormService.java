@@ -23,7 +23,7 @@ public class FormService {
 
   public FormDTO createForm(FormDTO formDTO, String userId) {
     // TODO: validate schema and userId here.
-    Form form = new Form(formDTO.getSchema(), userId);
+    Form form = new Form(formDTO.getSchema().toString(), userId);
     form = formRepository.save(form);
     return converter.convert(form, new TypeReference<>() {});
   }
@@ -49,7 +49,7 @@ public class FormService {
       throw new RuntimeException("Form not found with id: " + formId);
     }
     Form form = formOpt.get();
-    form.setSchema(formDTO.getSchema());
+    form.setSchema(formDTO.getSchema().toString());
     form = formRepository.save(form);
     return converter.convert(form, new TypeReference<>() {});
   }

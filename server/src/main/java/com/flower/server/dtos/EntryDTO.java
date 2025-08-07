@@ -1,6 +1,6 @@
 package com.flower.server.dtos;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
 @Data
@@ -10,7 +10,7 @@ public class EntryDTO {
 
   String formId;
 
-  ObjectNode values;
+  JsonNode values;
 
   // TODO: see how userId can be integrated here, maybe we can as we are building
   //  this for orgs internal purposes rather than online anonymous survey forms

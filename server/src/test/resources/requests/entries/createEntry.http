@@ -1,0 +1,13 @@
+POST http://localhost:8000/forms/8c0f26c1-0bc7-4b44-91a4-dd8ce3f17d92/entries
+Content-Type: application/json
+
+{
+    "request": {
+        "formId": "8c0f26c1-0bc7-4b44-91a4-dd8ce3f17d92",
+        "values": {
+            "name": "name",
+            "email": "abc@email.com",
+            "age": 30
+        }
+    }
+}

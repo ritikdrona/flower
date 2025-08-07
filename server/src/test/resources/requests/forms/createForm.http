@@ -1,0 +1,27 @@
+POST http://localhost:8000/forms
+Content-Type: application/json
+
+{
+    "request": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "title": "Name"
+                },
+                "email": {
+                    "type": "string",
+                    "format": "email",
+                    "title": "Email"
+                },
+                "age": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "title": "Age"
+                }
+            },
+            "required": ["name", "email"]
+        }
+    }
+}
