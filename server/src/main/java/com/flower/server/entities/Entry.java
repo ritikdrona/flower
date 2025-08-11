@@ -1,5 +1,8 @@
 package com.flower.server.entities;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.flower.server.converters.JsonNodeConverter;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -19,5 +22,6 @@ public class Entry {
 
   String formId;
 
-  String values; // stored validated values of an entry against a form as json
+  @Convert(converter = JsonNodeConverter.class)
+  JsonNode fieldValues; // stored validated fieldValues of an entry against a form as json
 }

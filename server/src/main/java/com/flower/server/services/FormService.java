@@ -3,6 +3,7 @@ package com.flower.server.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.flower.server.dtos.FormDTO;
 import com.flower.server.entities.Form;
+import com.flower.server.repositories.EntryRepository;
 import com.flower.server.repositories.FormRepository;
 import com.flower.server.utils.Converter;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -19,11 +21,13 @@ public class FormService {
 
   private final FormRepository formRepository;
 
+  private final EntryRepository entryRepository;
+
   private final Converter converter;
 
   public FormDTO createForm(FormDTO formDTO, String userId) {
     // TODO: validate schema and userId here.
-    Form form = new Form(formDTO.getSchema().toString(), userId);
+    Form form = new Form(formDTO.getSchema(), userId);
     form = formRepository.save(form);
     return converter.convert(form, new TypeReference<>() {});
   }
@@ -49,16 +53,15 @@ public class FormService {
       throw new RuntimeException("Form not found with id: " + formId);
     }
     Form form = formOpt.get();
-    form.setSchema(formDTO.getSchema().toString());
+    form.setSchema(formDTO.getSchema());
     form = formRepository.save(form);
     return converter.convert(form, new TypeReference<>() {});
   }
 
+  @Transactional
   public boolean deleteForm(String formId) {
-    if (!formRepository.existsById(formId)) {
-      return false;
-    }
     formRepository.deleteById(formId);
+    entryRepository.deleteByFormId(formId);
     return true;
   }
 }

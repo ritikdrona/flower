@@ -1,5 +1,8 @@
 package com.flower.server.entities;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.flower.server.converters.JsonNodeConverter;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -19,11 +22,12 @@ public class Form {
   @UuidGenerator
   String id;
 
-  String schema; // Stored fields, their types and validations if any in json
+  @Convert(converter = JsonNodeConverter.class)
+  JsonNode schema; // Stored fields, their types and validations if any in json
 
   String userId; // Not sure yet if we need orgId or not. but we first work on MVP for 1 org
 
-  public Form(String schema, String userId) {
+  public Form(JsonNode schema, String userId) {
     this.schema = schema;
     this.userId = userId;
   }

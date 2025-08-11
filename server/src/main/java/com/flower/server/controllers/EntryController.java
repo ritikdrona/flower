@@ -1,7 +1,7 @@
 package com.flower.server.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.flower.server.dtos.EntryDTO;
-import com.flower.server.dtos.generic.ApiRequest;
 import com.flower.server.dtos.generic.ApiResponse;
 import com.flower.server.dtos.generic.ApiSingleRequest;
 import com.flower.server.dtos.generic.ApiSingleResponse;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,8 +28,8 @@ public class EntryController {
 
   @PostMapping
   public ResponseEntity<ApiSingleResponse<EntryDTO>> createEntry(
-      @RequestBody ApiSingleRequest<EntryDTO> request, @PathVariable String formId) {
-    EntryDTO created = entryService.createEntry(request.getRequest());
+      @RequestBody ApiSingleRequest<JsonNode> request, @PathVariable String formId) {
+    EntryDTO created = entryService.createEntry(formId, request.getRequest());
     return ResponseEntity.ok(new ApiSingleResponse<>(created));
   }
 
@@ -47,10 +48,10 @@ public class EntryController {
 
   @PutMapping("{entryId}")
   public ResponseEntity<ApiSingleResponse<EntryDTO>> updateEntry(
-      @RequestBody ApiSingleRequest<EntryDTO> request,
+      @RequestBody ApiSingleRequest<JsonNode> request,
       @PathVariable String formId,
       @PathVariable String entryId) {
-    EntryDTO updated = entryService.updateEntry(request.getRequest(), formId);
+    EntryDTO updated = entryService.updateEntry(formId, entryId, request.getRequest());
     return ResponseEntity.ok(new ApiSingleResponse<>(updated));
   }
 
@@ -63,8 +64,8 @@ public class EntryController {
 
   @DeleteMapping
   public ResponseEntity<ApiResponse<String>> deleteEntries(
-      @PathVariable String formId, @RequestBody ApiRequest<String> request) {
-    List<String> deletedIds = entryService.deleteEntries(formId, request.getRequest());
+      @PathVariable String formId, @RequestParam List<String> ids) {
+    List<String> deletedIds = entryService.deleteEntries(formId, ids);
     return ResponseEntity.ok(new ApiResponse<>(deletedIds));
   }
 }

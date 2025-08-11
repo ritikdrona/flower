@@ -14,4 +14,6 @@ public interface EntryRepository extends JpaRepository<Entry, String> {
   Optional<Entry> findByIdAndFormId(String id, String formId);
 
   List<Entry> findAllByFormIdAndIdIn(String formId, List<String> ids);
+
+  long deleteByFormId(String formId);
 }

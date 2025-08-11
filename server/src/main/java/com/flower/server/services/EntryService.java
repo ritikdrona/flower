@@ -1,6 +1,7 @@
 package com.flower.server.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.flower.server.dtos.EntryDTO;
 import com.flower.server.entities.Entry;
 import com.flower.server.entities.Form;
@@ -31,12 +32,12 @@ public class EntryService {
 
   private final JsonSchemaFactory jsonSchemaFactory;
 
-  public EntryDTO createEntry(EntryDTO entryDTO) {
-    validateFormExistsAndValuesConformToSchema(entryDTO);
+  public EntryDTO createEntry(String formId, JsonNode fieldValues) {
+    validateFormExistsAndValuesConformToSchema(formId, fieldValues);
 
     Entry entry = new Entry();
-    entry.setFormId(entryDTO.getFormId());
-    entry.setValues(entryDTO.getValues().toString());
+    entry.setFormId(formId);
+    entry.setFieldValues(fieldValues);
     entryRepository.save(entry);
 
     return converter.convert(entry, new TypeReference<>() {});
@@ -56,22 +57,24 @@ public class EntryService {
     return converter.convert(entryOpt.get(), new TypeReference<>() {});
   }
 
-  public EntryDTO updateEntry(EntryDTO entryDTO, String formId) {
-    Optional<Entry> entryOpt = entryRepository.findById(entryDTO.getId());
+  public EntryDTO updateEntry(String formId, String entryId, JsonNode fieldValues) {
+    Optional<Entry> entryOpt = entryRepository.findById(entryId);
     if (entryOpt.isEmpty() || !entryOpt.get().getFormId().equals(formId)) {
       throw new RuntimeException("Entry not found for update");
     }
 
-    validateFormExistsAndValuesConformToSchema(entryDTO);
+    validateFormExistsAndValuesConformToSchema(formId, fieldValues);
 
     Entry entry = entryOpt.get();
-    entry.setValues(entryDTO.getValues().toString());
+    entry.setFieldValues(fieldValues);
     entry = entryRepository.save(entry);
 
     return converter.convert(entry, new TypeReference<>() {});
   }
 
   public Boolean deleteEntry(String entryId, String formId) {
+    // we are checking here for formId too, because we don't want to delete
+    // entries for another form when dealing with one
     Optional<Entry> entryOpt = entryRepository.findByIdAndFormId(entryId, formId);
     if (entryOpt.isEmpty()) {
       return false;
@@ -87,14 +90,14 @@ public class EntryService {
     return deletedIds;
   }
 
-  private void validateFormExistsAndValuesConformToSchema(EntryDTO entryDTO) {
-    Optional<Form> form = formRepository.findById(entryDTO.getFormId());
+  private void validateFormExistsAndValuesConformToSchema(String formId, JsonNode fieldValues) {
+    Optional<Form> form = formRepository.findById(formId);
     if (form.isEmpty()) {
       throw new RuntimeException("Form does not exist");
     }
 
     JsonSchema schema = jsonSchemaFactory.getSchema(form.get().getSchema());
-    Set<ValidationMessage> validationMessages = schema.validate(entryDTO.getValues());
+    Set<ValidationMessage> validationMessages = schema.validate(fieldValues);
     if (!validationMessages.isEmpty()) {
       String errorMessage =
           validationMessages.stream()

@@ -1,0 +1,2 @@
+DELETE http://localhost:8000/forms/95ce6f9c-a6d5-4473-bdca-c64a54474c1c/entries?ids=1c2aeae7-4b6a-4b9a-9036-4af3d1341876,c08ac17a-124b-40f0-a470-91d63ff52eb4
+Content-Type: application/json

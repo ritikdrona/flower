@@ -10,7 +10,7 @@ public class EntryDTO {
 
   String formId;
 
-  JsonNode values;
+  JsonNode fieldValues;
 
   // TODO: see how userId can be integrated here, maybe we can as we are building
   //  this for orgs internal purposes rather than online anonymous survey forms
