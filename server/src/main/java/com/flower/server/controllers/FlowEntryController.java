@@ -1,11 +1,11 @@
 package com.flower.server.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.flower.server.dtos.EntryDTO;
+import com.flower.server.dtos.FlowEntryDTO;
 import com.flower.server.dtos.generic.ApiResponse;
 import com.flower.server.dtos.generic.ApiSingleRequest;
 import com.flower.server.dtos.generic.ApiSingleResponse;
-import com.flower.server.services.EntryService;
+import com.flower.server.services.FlowEntryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,52 +20,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("forms/{formId}/entries")
+@RequestMapping("flows/{flowId}/entries")
 @RequiredArgsConstructor
-public class EntryController {
-
-  private final EntryService entryService;
+public class FlowEntryController {
 
   @PostMapping
-  public ResponseEntity<ApiSingleResponse<EntryDTO>> createEntry(
-      @RequestBody ApiSingleRequest<JsonNode> request, @PathVariable String formId) {
-    EntryDTO created = entryService.createEntry(formId, request.getRequest());
+  public ResponseEntity<ApiSingleResponse<FlowEntryDTO>> createEntry(
+      @RequestBody ApiSingleRequest<JsonNode> request, @PathVariable String flowId) {
+    FlowEntryDTO created = flowEntryService.createEntry(flowId, request.getRequest());
     return ResponseEntity.ok(new ApiSingleResponse<>(created));
   }
 
   @GetMapping
-  public ResponseEntity<ApiResponse<EntryDTO>> getEntries(@PathVariable String formId) {
-    List<EntryDTO> entries = entryService.getEntries(formId);
+  public ResponseEntity<ApiResponse<FlowEntryDTO>> getEntries(@PathVariable String flowId) {
+    List<FlowEntryDTO> entries = flowEntryService.getEntries(flowId);
     return ResponseEntity.ok(new ApiResponse<>(entries));
   }
 
   @GetMapping("{entryId}")
-  public ResponseEntity<ApiSingleResponse<EntryDTO>> getEntry(
-      @PathVariable String formId, @PathVariable String entryId) {
-    EntryDTO entry = entryService.getEntry(formId, entryId);
+  public ResponseEntity<ApiSingleResponse<FlowEntryDTO>> getEntry(
+      @PathVariable String flowId, @PathVariable String entryId) {
+    FlowEntryDTO entry = flowEntryService.getEntry(flowId, entryId);
     return ResponseEntity.ok(new ApiSingleResponse<>(entry));
   }
 
   @PutMapping("{entryId}")
-  public ResponseEntity<ApiSingleResponse<EntryDTO>> updateEntry(
+  public ResponseEntity<ApiSingleResponse<FlowEntryDTO>> updateEntry(
       @RequestBody ApiSingleRequest<JsonNode> request,
-      @PathVariable String formId,
+      @PathVariable String flowId,
       @PathVariable String entryId) {
-    EntryDTO updated = entryService.updateEntry(formId, entryId, request.getRequest());
+    FlowEntryDTO updated = flowEntryService.updateEntry(flowId, entryId, request.getRequest());
     return ResponseEntity.ok(new ApiSingleResponse<>(updated));
   }
 
   @DeleteMapping("{entryId}")
   public ResponseEntity<ApiSingleResponse<Boolean>> deleteEntry(
-      @PathVariable String formId, @PathVariable String entryId) {
-    Boolean deleted = entryService.deleteEntry(entryId, formId);
+      @PathVariable String flowId, @PathVariable String entryId) {
+    Boolean deleted = flowEntryService.deleteEntry(entryId, flowId);
     return ResponseEntity.ok(new ApiSingleResponse<>(deleted));
   }
 
   @DeleteMapping
   public ResponseEntity<ApiResponse<String>> deleteEntries(
-      @PathVariable String formId, @RequestParam List<String> ids) {
-    List<String> deletedIds = entryService.deleteEntries(formId, ids);
+      @PathVariable String flowId, @RequestParam List<String> ids) {
+    List<String> deletedIds = flowEntryService.deleteEntries(flowId, ids);
     return ResponseEntity.ok(new ApiResponse<>(deletedIds));
   }
 }

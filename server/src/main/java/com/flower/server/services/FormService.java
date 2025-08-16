@@ -3,7 +3,7 @@ package com.flower.server.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.flower.server.dtos.FormDTO;
 import com.flower.server.entities.Form;
-import com.flower.server.repositories.EntryRepository;
+import com.flower.server.repositories.FormEntryRepository;
 import com.flower.server.repositories.FormRepository;
 import com.flower.server.utils.Converter;
 import java.util.List;
@@ -21,7 +21,7 @@ public class FormService {
 
   private final FormRepository formRepository;
 
-  private final EntryRepository entryRepository;
+  private final FormEntryRepository formEntryRepository;
 
   private final Converter converter;
 
@@ -61,7 +61,7 @@ public class FormService {
   @Transactional
   public boolean deleteForm(String formId) {
     formRepository.deleteById(formId);
-    entryRepository.deleteByFormId(formId);
+    formEntryRepository.deleteByFormId(formId);
     return true;
   }
 }
