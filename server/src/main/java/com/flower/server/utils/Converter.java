@@ -14,13 +14,11 @@ public class Converter {
   final ObjectMapper objectMapper;
 
   public <T, R> R convert(T object, TypeReference<R> typeReference) {
-    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     return objectMapper.convertValue(object, typeReference);
   }
 
   public <T, R> List<R> convertCollection(
       List<T> collection, TypeReference<List<R>> typeReference) {
-    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     return objectMapper.convertValue(collection, typeReference);
   }
 }
