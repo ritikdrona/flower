@@ -21,7 +21,4 @@ public class Flow {
   @GeneratedValue(generator = "uuid")
   @UuidGenerator
   String id;
-
-  @Convert(converter = ListConverter.class)
-  List<String> stepIds;
 }

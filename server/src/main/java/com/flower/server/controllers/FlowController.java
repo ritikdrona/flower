@@ -4,7 +4,8 @@ import com.flower.server.dtos.FlowDTO;
 import com.flower.server.dtos.generic.ApiResponse;
 import com.flower.server.dtos.generic.ApiSingleRequest;
 import com.flower.server.dtos.generic.ApiSingleResponse;
-import java.util.ArrayList;
+import com.flower.server.services.FlowService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,30 +22,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FlowController {
 
+  private final FlowService flowService;
+
   @PostMapping
   public ResponseEntity<ApiSingleResponse<FlowDTO>> createFlow(
       @RequestBody ApiSingleRequest<FlowDTO> request) {
-    return ResponseEntity.ok(new ApiSingleResponse<>(new FlowDTO()));
+    FlowDTO created = flowService.createFlow(request.getRequest());
+    return ResponseEntity.ok(new ApiSingleResponse<>(created));
   }
 
   @GetMapping
   public ResponseEntity<ApiResponse<FlowDTO>> getFlows() {
-    return ResponseEntity.ok(new ApiResponse<>(new ArrayList<>()));
+    List<FlowDTO> flows = flowService.getFlows();
+    return ResponseEntity.ok(new ApiResponse<>(flows));
   }
 
   @GetMapping("{flowId}")
   public ResponseEntity<ApiSingleResponse<FlowDTO>> getFlow(@PathVariable String flowId) {
-    return ResponseEntity.ok(new ApiSingleResponse<>(new FlowDTO()));
+    FlowDTO flowDTO = flowService.getFlow(flowId);
+    return ResponseEntity.ok(new ApiSingleResponse<>(flowDTO));
   }
 
   @PutMapping("{flowId}")
   public ResponseEntity<ApiSingleResponse<FlowDTO>> updateFlow(
       @PathVariable String flowId, @RequestBody ApiSingleRequest<FlowDTO> request) {
-    return ResponseEntity.ok(new ApiSingleResponse<>(new FlowDTO()));
+    FlowDTO updated = flowService.updateFlow(flowId, request.getRequest());
+    return ResponseEntity.ok(new ApiSingleResponse<>(updated));
   }
 
   @DeleteMapping("{flowId}")
   public ResponseEntity<ApiSingleResponse<Boolean>> deleteFlow(@PathVariable String flowId) {
-    return ResponseEntity.ok(new ApiSingleResponse<>(Boolean.TRUE));
+    Boolean deleted = flowService.deleteFlow(flowId);
+    return ResponseEntity.ok(new ApiSingleResponse<>(deleted));
   }
 }
